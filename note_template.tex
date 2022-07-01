@@ -1,0 +1,322 @@
+\documentclass[11pt,titlepage,dvipdfmx]{jsarticle}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	和文: jsarticle, 欧文: article
+%	titlepage: タイトルを独立したページにする.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{
+	amssymb,
+	amsmath,
+	amsthm,
+	ascmac,
+	mathrsfs,
+	framed,
+	color,
+	bm,
+	stmaryrd,
+	clock,
+	qrcode,
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	amssymb, amsmath: 数学記号. ほぼ必須.
+%	amsthm: 定理環境(\newtheorem)を定義するのに必要.
+%	ascmac: 文章を囲むscreen環境(screen, itembox, shadebox, etc. )に必要.
+%	mathrsfs: 花文字. 
+%	framed: leftbar環境に必要.
+%	color: 文字色を変える.
+%	bm: 太文字を使用.
+%	stmaryrd: \longmapsfromの使用.
+%	clock: 時計.
+%	qrcode: QRコードを生成.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[dvipdfmx]{graphicx}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	図の挿入.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\allowdisplaybreaks[4]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	align環境において式の途中で改ページをしない.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{indentfirst}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	段落が変わったときに字下げをする.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[dvipdfmx]{hyperref}
+\usepackage{pxjahyper}
+\hypersetup{colorlinks=true,urlcolor=blue,citecolor=blue,linkcolor=blue}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	引用する際にリンクを付ける.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[margin=15truemm]{geometry}
+\usepackage{layout}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	レイアウト. 色々書き方はある. 例えば以下を参考.
+%	https://dayinthelife.at.webry.info/201401/article_2.html
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[all]{xy}
+\def\objectstyle{\displaystyle}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	可換図式等を綺麗に書く用. 例えば以下を参考.
+%	http://www.math.u-ryukyu.ac.jp/~tsukuda/computer/tex/files/xypic-example.pdf
+%	蛇の補題等はxyパッケージを用いるよりもTikZパッケージを用いる方が楽そう. 例えば以下を参考.
+%	http://abenori.blogspot.com/2015/07/tikz-cd.html
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{mathtools}
+\mathtoolsset{showonlyrefs,showmanualtags}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	式を引用するときだけ式番号を表示. これがあれば(align*とalignを混在させずに)align環境だけで良くなる.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{listings}
+\lstset{
+basicstyle={\ttfamily},
+identifierstyle={\small},
+commentstyle={\smallitshape},
+keywordstyle={\small\bfseries},
+ndkeywordstyle={\small},
+stringstyle={\small\ttfamily},
+frame={tb},
+breaklines=true,
+columns=[l]{fullflexible},
+numbers=left,
+xrightmargin=0zw,
+xleftmargin=3zw,
+numberstyle={\scriptsize},
+stepnumber=1,
+numbersep=1zw,
+lineskip=-0.5ex
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	プログラムのコードを載せる用. \begin{lstlisting}で書ける. 以下から拝借させていただいた.
+% 	https://qiita.com/ta_b0_/items/2619d5927492edbb5b03
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable,skins,theorems}
+\definecolor{burgundy}{rgb}{0.5, 0.0, 0.13}
+\tcbset{mytheo/.style={
+fonttitle=\gtfamily\sffamily\bfseries\upshape,
+enhanced,
+colframe=burgundy,
+colback=burgundy!2!white,
+colbacktitle=burgundy,
+boxrule=0pt,
+borderline south={2pt}{-2pt}{burgundy},
+left*=1zw,
+right*=1zw,
+theorem style=standard,
+breakable,sharp corners,
+before skip=8pt,
+after skip=10pt,
+before upper={\setlength{\parindent}{1zw}},
+before lower={\setlength{\parindent}{1zw}}
+}}
+%Theorem
+\newtcbtheorem[number within=section]{thm}{Theorem}%
+{mytheo}{thm}
+%Proposition
+\newtcbtheorem[use counter from=thm]{prop}{Proposition}%
+{mytheo}{prop}
+%Corollary
+\newtcbtheorem[use counter from=thm]{cor}{Corollary}%
+{mytheo}{cor}
+%Definition
+\newtcbtheorem[use counter from=thm]{defi}{Definition}%
+{mytheo,
+colframe=blue!50!black,colback=blue!50!black!2!white,colbacktitle=blue!50!black,borderline south={2pt}{-2pt}{blue!50!black},}{defi}
+%Lemma
+\newtcbtheorem[use counter from=thm]{lem}{Lemma}%
+{mytheo}{lem}
+%Example
+\definecolor{charcoal}{rgb}{0.21, 0.27, 0.31}
+\newtcbtheorem[use counter from=thm]{ex}{Example}%
+{mytheo,
+colframe=charcoal,colback=charcoal!2!white,colbacktitle=charcoal,borderline south={2pt}{-2pt}{charcoal},}{ex}
+%Remark
+\definecolor{charcoal}{rgb}{0.21, 0.27, 0.31}
+\newtcbtheorem[use counter from=thm]{rem}{Remark}%
+{mytheo,
+colframe=charcoal,colback=charcoal!2!white,colbacktitle=charcoal,borderline south={2pt}{-2pt}{charcoal},}{rem}
+%補足
+\newenvironment{hosoku}{\begin{leftbar}\color{gray}}{\color{black}\end{leftbar}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	定理や命題の装飾.
+%	\begin{thm}{タイトル}{ラベル名} \end{thm}で定理を書き,
+%	\ref{thm:ラベル名}で引用. 以下から拝借させていただいた.
+%	https://marukunalufd0123.hatenablog.com/entry/saikyou1#定理環境
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\makeatletter
+\newcommand{\MyMathOperators}[1]{\@for\op:=#1\do{
+	\expandafter\edef\csname\op\endcsname{\noexpand\mathop{\noexpand\mathrm{\op}}\nolimits}
+}}
+\makeatother
+\MyMathOperators{%
+	Ker,%
+	Coker,%
+	Hom,%
+	End,%
+	Aut,%
+	id,%
+	Gal,%
+	ch,%
+	ord,%
+	Spec,%
+	Specm,%
+	Frac,%
+	rank,%
+	corank,%
+	sgn,%
+	alg,%
+	Reg,%
+	Sel,%
+}
+
+\let\Re\relax
+\DeclareMathOperator{\Re}{Re}
+\let\Im\relax
+\DeclareMathOperator{\Im}{Im}
+\let\epsilon\relax
+\DeclareMathOperator{\epsilon}{\varepsilon}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	新しい数学演算子を定義. 例えば以下を参考.
+%	https://mathlandscape.com/declaremathoperator/
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\makeatletter
+\newcommand{\MyAlphabet}[1]{\@tfor\Ch@r:=#1\do{
+	\expandafter\edef\csname bb\Ch@r\endcsname{\noexpand\mathbb{\Ch@r}}
+	\expandafter\edef\csname cal\Ch@r\endcsname{\noexpand\mathcal{\Ch@r}}
+	\expandafter\edef\csname frak\Ch@r\endcsname{\noexpand\mathfrak{\Ch@r}}
+	\expandafter\edef\csname scr\Ch@r\endcsname{\noexpand\mathscr{\Ch@r}}
+}}
+\makeatother
+
+\MyAlphabet{ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz}
+
+\newcommand{\ilim}[1][]{\mathop{\varinjlim}\limits_{#1}}
+\newcommand{\plim}[1][]{\mathop{\varprojlim}\limits_{#1}}
+
+\renewcommand{\bar}[1]{\overline{#1}}
+\renewcommand{\tilde}[1]{\widetilde{#1}}
+\renewcommand{\hat}[1]{\widehat{#1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	めんどくさい書き方するものを省略して書く方法.
+%	\newcommand{コマンド名(任意)}[引数の数]{#1(最初の引数), #2(次の引数), ...を使ったコマンド}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%括弧( )
+\DeclarePairedDelimiter{\skakko}{\lparen}{\rparen}
+%括弧{ }
+\DeclarePairedDelimiter{\mkakko}{\lbrace}{\rbrace}
+%括弧[ ]
+\DeclarePairedDelimiter{\lkakko}{\lbrack}{\rbrack}
+%括弧< >
+\DeclarePairedDelimiter{\gkakko}{\langle}{\rangle}
+%絶対値| |
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+%集合{ }
+\DeclarePairedDelimiterX{\set}[2]{\lbrace}{\rbrace}{#1\,\delimsize\vert\,#2}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	括弧の大きさ等を自動的に調整. 例えば以下を参考.
+%	https://mathlandscape.com/declarepaireddelimiter/
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{bxjalipsum}
+\usepackage[leftmarker]{mindflow}
+\renewcommand{\mindflowTextFont}{\normalfont\footnotesize\sffamily\itshape}
+\renewcommand{\mindflowNumFont}{\normalfont\footnotesize\sffamily}
+\renewcommand{\mindflowLeft}{\hspace{1em}\(\succ\)}
+\renewcommand{\mindflowRight}{\(\prec\)}
+\setlength{\mindflowLineHeight}{1pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	メインテキスト中にアイデア, 注釈, 計画を書けるパッケージ. 例えば以下を参考.
+%	https://konoyonohana.blog.fc2.com/blog-entry-608.html
+%	\begin{mindflow} \end{mindflow}と使用.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[OT2,T1]{fontenc}
+\DeclareSymbolFont{cyrletters}{OT2}{wncyr}{m}{n}
+\DeclareMathSymbol{\Sha}{\mathalpha}{cyrletters}{"58}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	キリル文字, 特にShaを表示させる用.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\theenumi}{\roman{enumi}}
+\renewcommand{\labelenumi}{(\theenumi)}
+\renewcommand{\theenumii}{\theenumi-\alph{enumii}}
+\renewcommand{\labelenumii}{(\theenumii)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	enumerate環境の見出し変更.
+%	https://mathlandscape.com/latex-enum/
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\MyMailAddress{メールアドレス}
+\def\MyLink{http://abehiroshi.la.coocan.jp} % 表示させたいURLやメールアドレス, 文字列等. 英字のみ.
+\def\MyQRCode{\setlength\normallineskiplimit{0pt}\qrcode[hyperlink,height=2cm]{\MyLink}}
+\title{タイトル \\ \vspace{20pt} \MyQRCode}
+\author{氏名 \thanks{mail: \href{\MyMailAddress}{\texttt{\MyMailAddress}}}}
+\date{最終更新: \today \texthours 時 \textminutes 分 \clocktime}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	必要ない箇所は空欄にすれば表示されなくなる.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	タイトルを表示.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	目次を表示.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	本文は目次の次のページから始める.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+
+
+
+
+
+
+
+%\bibliographystyle{plain}
+%\bibliography{test}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	bibtexを用いた参考文献. 以下のthebibliography環境とのいずれか一方を使用.
+%	test.bibというbibファイルを作り, そこに文献データを登録しておく.
+%	引用文献を表示させるには
+%	「LaTeX」で1回タイプセット -> 「BibTeX」で1回タイプセット -> 「LaTeX」で3回タイプセット
+%	とする. それ以降はbibファイルに加除がないなら「BibTeX」によるタイプセットは必要なし.
+%	plain(jplain)は参考文献をアルファベット順で出力. unsrt(junsrt)は引用された順で出力する.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thebibliography}{999}
+
+\bibitem{引用名} 引用文献.
+
+\end{thebibliography}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	参考文献. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
