@@ -76,22 +76,22 @@
 
 \usepackage{listings}
 \lstset{
-basicstyle={\ttfamily},
-identifierstyle={\small},
-commentstyle={\smallitshape},
-keywordstyle={\small\bfseries},
-ndkeywordstyle={\small},
-stringstyle={\small\ttfamily},
-frame={tb},
-breaklines=true,
-columns=[l]{fullflexible},
-numbers=left,
-xrightmargin=0zw,
-xleftmargin=3zw,
-numberstyle={\scriptsize},
-stepnumber=1,
-numbersep=1zw,
-lineskip=-0.5ex
+	basicstyle={\ttfamily},
+	identifierstyle={\small},
+	commentstyle={\smallitshape},
+	keywordstyle={\small\bfseries},
+	ndkeywordstyle={\small},
+	stringstyle={\small\ttfamily},
+	frame={tb},
+	breaklines=true,
+	columns=[l]{fullflexible},
+	numbers=left,
+	xrightmargin=0zw,
+	xleftmargin=3zw,
+	numberstyle={\scriptsize},
+	stepnumber=1,
+	numbersep=1zw,
+	lineskip=-0.5ex
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	プログラムのコードを載せる用. \begin{lstlisting}で書ける. 以下から拝借させていただいた.
@@ -102,21 +102,21 @@ lineskip=-0.5ex
 \tcbuselibrary{breakable,skins,theorems}
 \definecolor{burgundy}{rgb}{0.5, 0.0, 0.13}
 \tcbset{mytheo/.style={
-fonttitle=\gtfamily\sffamily\bfseries\upshape,
-enhanced,
-colframe=burgundy,
-colback=burgundy!2!white,
-colbacktitle=burgundy,
-boxrule=0pt,
-borderline south={2pt}{-2pt}{burgundy},
-left*=1zw,
-right*=1zw,
-theorem style=standard,
-breakable,sharp corners,
-before skip=8pt,
-after skip=10pt,
-before upper={\setlength{\parindent}{1zw}},
-before lower={\setlength{\parindent}{1zw}}
+	fonttitle=\gtfamily\sffamily\bfseries\upshape,
+	enhanced,
+	colframe=burgundy,
+	colback=burgundy!2!white,
+	colbacktitle=burgundy,
+	boxrule=0pt,
+	borderline south={2pt}{-2pt}{burgundy},
+	left*=1zw,
+	right*=1zw,
+	theorem style=standard,
+	breakable,sharp corners,
+	before skip=8pt,
+	after skip=10pt,
+	before upper={\setlength{\parindent}{1zw}},
+	before lower={\setlength{\parindent}{1zw}}
 }}
 %Theorem
 \newtcbtheorem[number within=section]{thm}{Theorem}%
@@ -299,8 +299,8 @@ colframe=charcoal,colback=charcoal!2!white,colbacktitle=charcoal,borderline sout
 
 
 
-%\bibliographystyle{plain}
-%\bibliography{test}
+\bibliographystyle{plain}
+\bibliography{test}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	bibtexを用いた参考文献. 以下のthebibliography環境とのいずれか一方を使用.
 %	test.bibというbibファイルを作り, そこに文献データを登録しておく.
@@ -309,14 +309,4 @@ colframe=charcoal,colback=charcoal!2!white,colbacktitle=charcoal,borderline sout
 %	とする. それ以降はbibファイルに加除がないなら「BibTeX」によるタイプセットは必要なし.
 %	plain(jplain)は参考文献をアルファベット順で出力. unsrt(junsrt)は引用された順で出力する.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{thebibliography}{999}
-
-\bibitem{引用名} 引用文献.
-
-\end{thebibliography}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%	参考文献. 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \end{document}
