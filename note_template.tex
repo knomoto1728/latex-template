@@ -1,4 +1,4 @@
-\documentclass[10pt,titlepage,dvipdfmx]{jsarticle}
+\documentclass[10pt,titlepage]{jsarticle}
 %
 %	和文: jsarticle, 欧文: article
 %	titlepage: タイトルを独立したページにする.
@@ -59,12 +59,20 @@
 
 \usepackage[all]{xy}
 \def\objectstyle{\displaystyle}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%	可換図式等を綺麗に書く用. 例えば以下を参考.
+%
+%	可換図式等を簡単に綺麗に書くことができる.
+%	しかし蛇の補題等の複雑な図式には向かない. 例えば以下を参考.
 %	http://www.math.u-ryukyu.ac.jp/~tsukuda/computer/tex/files/xypic-example.pdf
-%	蛇の補題等はxyパッケージを用いるよりもTikZパッケージを用いる方が楽そう. 例えば以下を参考.
+%	
+%
+
+\usepackage{tikz}
+\usetikzlibrary{cd}
+%
+%	(たぶん)上のxyパッケージの上位互換. 蛇の補題等も書ける. ただし書き方が複雑.
+%	http://alg-d.com/math/kan_extension/tikz.html
 %	http://abenori.blogspot.com/2015/07/tikz-cd.html
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
 
 \usepackage{mathtools}
 \mathtoolsset{showonlyrefs,showmanualtags}
@@ -323,7 +331,7 @@ align環境で数式を書く際には, ラベリングをするかどうかに�
 \begin{defi}{群}{Group}
 	空でない集合$G$が\textbf{群}であるとは, 写像
 	\begin{align}
-		\phi: G\times G\to G; (g, h)\mapsto \phi(g, h)
+		\phi: G\times G\to G
 	\end{align}
 	で以下の三つの条件を満たすものが存在することをいう.
 	\begin{description}
@@ -346,6 +354,10 @@ align環境で数式を書く際には, ラベリングをするかどうかに�
 	\end{align}
 	が成り立つ. したがって群の単位元は一意的に存在する.
 \end{proof}
+
+\begin{rem}{}{}
+	Proposition \ref{prop:UniqueIdentityElement}と同様にして, 逆元の一意性も証明することができる.
+\end{rem}
 
 \subsection{コメント}
 
@@ -372,6 +384,56 @@ align環境で数式を書く際には, ラベリングをするかどうかに�
 \end{gyoukan}
 
 \section{図}
+
+\subsection{XY-pic}
+
+準同型定理の図式は以下のようにして書ける.
+\begin{align}
+	\xymatrix{
+		G \ar[r]^-{f} \ar[d]_-{\pi} & \Im f \\
+		G/\Ker f \ar@{.>}[ur]_-{\simeq} & \ar@{}[lu]|(.65){\circlearrowright} 
+	}
+\end{align}
+ファイバー積の普遍性は以下のようにして書ける.
+\begin{align}
+	\xymatrix{
+		T \ar@/^10pt/[rrd]^-{t} \ar@/_10pt/[ddr]_-{s} \ar@{.>}[rd]^-{{}^{\exists!}u}& & \\
+		 & X\times_{Z}Y \ar[r]^-{q} \ar[d]_-{p} & Y \ar[d]^-{g} \\
+		 & X \ar[r]_-{f} & Z
+	}
+\end{align}
+
+\subsection{TikZ}
+
+準同型定理の図式は以下のようにして書ける.
+\begin{align}
+	\begin{tikzpicture}[auto]
+		\node (G) at (0, 2) {$G$};
+		\node (Imf) at (2, 2) {$\Im f$};
+		\node (GKerf) at (0, 0) {$G/\Ker f$};
+		\node (Circle) at (0.6, 1.3) {$\circlearrowright$};
+		\draw[->] (G) to node {$f$} (Imf);
+		\draw[->] (G) to node[swap] {$\pi$} (GKerf);
+		\draw[->, dashed] (GKerf) to node[swap] {$\simeq$} (Imf);
+	\end{tikzpicture}
+\end{align}
+ファイバー積の普遍性は以下のようにして書ける.
+\begin{align}
+	\begin{tikzpicture}[auto]
+		\node (T) at (0, 3) {$T$};
+		\node (X) at (1.5, 0) {$X$};
+		\node (XxY) at (1.5, 1.5) {$X\times_{\bbZ}Y$};
+		\node (Z) at (3, 0) {$Z$};
+		\node (Y) at (3, 1.5) {$Y$};
+		\draw[->, dashed] (T) to node {${}^{\exists!}u$} (XxY);
+		\draw[->] (T) to[bend left=20] node {$t$} (Y);
+		\draw[->] (T) to[bend right=20] node[swap] {$s$} (X);
+		\draw[->] (XxY) to node {$q$} (Y);
+		\draw[->] (XxY) to node[swap] {$p$} (X);
+		\draw[->] (Y) to node {$g$} (Z);
+		\draw[->] (X) to node[swap] {$f$} (Z);
+	\end{tikzpicture}
+\end{align}
 
 \section{アルゴリズム・コード}
 
