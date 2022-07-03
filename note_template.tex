@@ -108,14 +108,49 @@
 \usepackage{tcolorbox}
 \tcbuselibrary{breakable,skins,theorems}
 \definecolor{burgundy}{rgb}{0.5, 0.0, 0.13}
-\tcbset{mytheo/.style={
+\definecolor{charcoal}{rgb}{0.21, 0.27, 0.31}
+\tcbset{MyThm1/.style={
+	fonttitle=\gtfamily\sffamily\bfseries\upshape, % タイトルのフォント
+	enhanced,
+	colframe=burgundy, % 枠色
+	colback=burgundy!2!white, % 中身の背景色
+	colbacktitle=burgundy,
+	boxrule=0pt, % 枠の線の太さ
+	borderline south={2pt}{-2pt}{burgundy}, % 枠の下側の設定
+	left*=1zw, % タイトルと本文の左に1zw分のスペース
+	right*=1zw, % タイトルと本文の右に1zw分のスペース
+	theorem style=standard,
+	breakable,sharp corners,
+	before skip=10pt, % 枠の前に10ptのスペース
+	after skip=10pt, % 枠の後に10ptのスペース
+	before upper={\setlength{\parindent}{1zw}}, % 上側の本文に1zwのインデント left*=10zwとの違いは？
+	before lower={\setlength{\parindent}{1zw}} % 下側の本文に1zwのインデント(必要無し)
+}}
+\tcbset{MyThm2/.style={
 	fonttitle=\gtfamily\sffamily\bfseries\upshape,
 	enhanced,
-	colframe=burgundy,
-	colback=burgundy!2!white,
-	colbacktitle=burgundy,
+	colframe=charcoal,
+	colback=charcoal!2!white,
+	colbacktitle=charcoal,
 	boxrule=0pt,
-	borderline south={2pt}{-2pt}{burgundy},
+	borderline south={2pt}{-2pt}{charcoal},
+	left*=1zw,
+	right*=1zw,
+	theorem style=standard,
+	breakable,sharp corners,
+	before skip=8pt,
+	after skip=10pt,
+	before upper={\setlength{\parindent}{1zw}},
+	before lower={\setlength{\parindent}{1zw}}
+}}
+\tcbset{MyThm3/.style={
+	fonttitle=\gtfamily\sffamily\bfseries\upshape,
+	enhanced,
+	colframe=blue!50!black,
+	colback=blue!50!black!2!white,
+	colbacktitle=blue!50!black,
+	boxrule=0pt,
+	borderline south={2pt}{-2pt}{blue!50!black},
 	left*=1zw,
 	right*=1zw,
 	theorem style=standard,
@@ -127,38 +162,37 @@
 }}
 %Theorem
 \newtcbtheorem[number within=section]{thm}{Theorem}%
-{mytheo}{thm}
+{MyThm1}{thm}
 %Proposition
 \newtcbtheorem[use counter from=thm]{prop}{Proposition}%
-{mytheo}{prop}
+{MyThm1}{prop}
 %Corollary
 \newtcbtheorem[use counter from=thm]{cor}{Corollary}%
-{mytheo}{cor}
-%Definition
-\newtcbtheorem[use counter from=thm]{defi}{Definition}%
-{mytheo,
-colframe=blue!50!black,colback=blue!50!black!2!white,colbacktitle=blue!50!black,borderline south={2pt}{-2pt}{blue!50!black},}{defi}
+{MyThm1}{cor}
 %Lemma
 \newtcbtheorem[use counter from=thm]{lem}{Lemma}%
-{mytheo}{lem}
+{MyThm1}{lem}
+%Definition
+\newtcbtheorem[use counter from=thm]{defi}{Definition}{MyThm3}{defi}
 %Example
-\definecolor{charcoal}{rgb}{0.21, 0.27, 0.31}
-\newtcbtheorem[use counter from=thm]{ex}{Example}%
-{mytheo,
-colframe=charcoal,colback=charcoal!2!white,colbacktitle=charcoal,borderline south={2pt}{-2pt}{charcoal},}{ex}
+\newtcbtheorem[use counter from=thm]{ex}{Example}{MyThm2}{ex}
 %Remark
-\definecolor{charcoal}{rgb}{0.21, 0.27, 0.31}
-\newtcbtheorem[use counter from=thm]{rem}{Remark}%
-{mytheo,
-colframe=charcoal,colback=charcoal!2!white,colbacktitle=charcoal,borderline south={2pt}{-2pt}{charcoal},}{rem}
+\newtcbtheorem[use counter from=thm]{rem}{Remark}{MyThm2}{rem}
 %行間
 \newenvironment{gyoukan}{\begin{leftbar}\color{gray}}{\color{black}\end{leftbar}}
 %
 %	定理や命題の装飾.
-%	\begin{thm}{タイトル}{ラベル名} \end{thm}で定理を書き,
-%	\ref{thm:ラベル名}で引用. 以下から拝借させていただいた.
+%	\begin{thm}{タイトル}{ラベル名} \end{thm}で定理を書き, \ref{thm:ラベル名}で引用. 
+%	しかしTeXShop, VScodeの拡張機能LaTeX Workshopでは, この書き方をするとラベルとして認識してくれない.
+%	それを回避するには\begin{thm}{タイトル}{}\label{thm:ラベル名} \end{thm}のように書けばよい.
+%	例えば以下を参考.
 %	https://marukunalufd0123.hatenablog.com/entry/saikyou1#定理環境
+%	簡潔なマニュアルは以下.
+%	https://tools.ietf.org/doc/texlive-doc/latex/tcolorbox/tcolorbox.pdf
+%	マニュアルは以下.
+%	https://ctan.math.washington.edu/tex-archive/macros/latex/contrib/tcolorbox/tcolorbox.pdf
 %
+%	
 
 \makeatletter
 \newcommand{\MyMathOperators}[1]{\@for\op:=#1\do{
@@ -328,7 +362,7 @@ align環境で数式を書く際には, ラベリングをするかどうかに�
 \subsection{定理環境}
 
 定義や命題等は, 以下のようにして記述する:
-\begin{defi}{群}{Group}
+\begin{defi}{群}{}\label{defi:Group}
 	空でない集合$G$が\textbf{群}であるとは, 写像
 	\begin{align}
 		\phi: G\times G\to G
@@ -342,7 +376,7 @@ align環境で数式を書く際には, ラベリングをするかどうかに�
 	$\phi(g, h)$のことを単に, $g\cdot h$や$gh$と書くことがある.
 \end{defi}
 
-\begin{prop}{単位元の一意性}{UniqueIdentityElement}
+\begin{prop}{単位元の一意性}{}\label{prop:UniqueIdentityElement}
 	群$G$の単位元$e$は一意的に存在する.
 \end{prop}
 \begin{proof}
@@ -355,7 +389,7 @@ align環境で数式を書く際には, ラベリングをするかどうかに�
 	が成り立つ. したがって群の単位元は一意的に存在する.
 \end{proof}
 
-\begin{rem}{}{}
+\begin{rem}{}{}\label{rem:UniqueInverseElement}
 	Proposition \ref{prop:UniqueIdentityElement}と同様にして, 逆元の一意性も証明することができる.
 \end{rem}
 
